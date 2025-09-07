@@ -89,55 +89,76 @@
 
 # Task3
 
-class Employee:
-    def __init__(self, name:str, surname:str, department:str, start_date:int):
-        if not name or not surname or not department :
-            raise ValueError("Name and Surname cannot be empty")
+# class Employee:
+#     def __init__(self, name:str, surname:str, department:str, start_date:int):
+#         if not name or not surname or not department :
+#             raise ValueError("Name and Surname cannot be empty")
+#
+#         if not isinstance(start_date, int) or start_date < 1900 or start_date > 2100 :
+#             raise ValueError("Start date must be between 1900 and 2100")
+#
+#         self.name = name
+#         self.surname = surname
+#         self.department = department
+#         self.start_date = start_date
+#
+#     def __str__(self):
+#         return f"{self.name} {self.surname}, department: {self.department}, {self.start_date}"
+#
+# def main():
+#     employees=[]
+#
+#     number_of_employees=int(input("How many employees? "))
+#     for i in range(number_of_employees):
+#         print(f"\nEnter employee info {i+1}:")
+#         try:
+#             name = input("Enter employee name: ").strip()
+#             surname = input("Enter employee surname: ").strip()
+#             department = input("Enter employee department: ").strip()
+#             start_date = int(input("Enter employee start date: ").strip())
+#             employee=Employee(name, surname, department, start_date)
+#             employees.append(employee)
+#         except Exception as e:
+#             print(e)
+#
+#     try:
+#         year = int(input("Enter year to filter employees: "))
+#     except ValueError:
+#         print("Year must be an integer")
+#         return
+#
+#     print(f"\nСпівробітники, прийняті після {year}:")
+#
+#     find=False
+#     for emp in employees:
+#         if emp.start_date > year:
+#             print(emp)
+#             find = True
+#
+#     if not find:
+#         print("There is no employee with that year")
+#
+# if __name__ == "__main__":
+#     main()
 
-        if not isinstance(start_date, int) or start_date < 1900 or start_date > 2100 :
-            raise ValueError("Start date must be between 1900 and 2100")
+# Task4
 
-        self.name = name
-        self.surname = surname
-        self.department = department
-        self.start_date = start_date
-
-    def __str__(self):
-        return f"{self.name} {self.surname}, department: {self.department}, {self.start_date}"
-
-def main():
-    employees=[]
-
-    number_of_employees=int(input("How many employees? "))
-    for i in range(number_of_employees):
-        print(f"\nEnter employee info {i+1}:")
-        try:
-            name = input("Enter employee name: ").strip()
-            surname = input("Enter employee surname: ").strip()
-            department = input("Enter employee department: ").strip()
-            start_date = int(input("Enter employee start date: ").strip())
-            employee=Employee(name, surname, department, start_date)
-            employees.append(employee)
-        except Exception as e:
-            print(e)
-
-    try:
-        year = int(input("Enter year to filter employees: "))
-    except ValueError:
-        print("Year must be an integer")
-        return
-
-    print(f"\nСпівробітники, прийняті після {year}:")
-
-    find=False
-    for emp in employees:
-        if emp.start_date > year:
-            print(emp)
-            find = True
-
-    if not find:
-        print("There is no employee with that year")
-
-if __name__ == "__main__":
-    main()
-
+# class MyCustomError(Exception):
+#     def __init__(self, message="Це моє власне виключення!"):
+#         super().__init__(message)
+#
+# def check_value(value):
+#     if value == "error"
+#         raise MyCustomError("Ви ввели заборонене значення: 'error'")
+#     return f"Ви ввели: {value}"
+#
+# def main():
+#     try:
+#         user_value=input("Введіть будь-що (або 'error', щоб викликати виняток): ")
+#         result = check_value(user_value)
+#         print(result)
+#     except MyCustomError as e:
+#         print(f"Сталася помилка: {e}")
+#
+# if __name__ == "__main__":
+#     main()
