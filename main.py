@@ -1,102 +1,143 @@
-# Завдання 1
+# Task2
 
-# class Car:
-#     def __init__(self, brand:str, model:str, year: int, mileage: int=0 ):
-#         self.__brand = brand
-#         self.__model = model
-#         self.__year = year
-#         self.__mileage = mileage
-#         self.color="white"
+# class Calculator:
+#     def add(self, a, b):
+#         return a + b
 #
-#     def get_brand(self):
-#         return self.__brand
+#     def subtract(self, a, b):
+#         return a - b
 #
-#     def set_brand(self, new_brand: str):
-#         if isinstance(new_brand, str) and new_brand.strip():
-#             self.__brand = new_brand
-#         else:
-#             print("Invalid brand")
+#     def multiply(self, a, b):
+#         return a * b
 #
-# car=Car("Toyota", "Camry")
-# print(car.get_brand())
+#     def divide(self, a, b):
+#         if b == 0:
+#             raise ZeroDivisionError("Ділення на нуль неможливе")
+#         return a / b
 #
-# car.set_brand("Mercedes")
-# print(car.get_brand())
-
-# Завдання 2
-
-# class English:
-#     def greeting(self):
-#         return "Hello, my friend!"
+#     def power(self, a, b):
+#         if a == 0 and b < 0:
+#             raise ValueError("0 не можна підносити до від’ємного степеня")
 #
-# class Spanish:
-#     def greeting(self):
-#         return "Hola, amigo!"
+#         return a ** b
 #
-# def hello(lang1, lang2):
-#     print(lang1.greeting())
-#     print(lang2.greeting())
 #
-# english = English()
-# spanish = Spanish()
-# hello(spanish, english)
-
-# Завдання 3 DONE
-
-# Завдання 4
-
-# class Base:
-#     @classmethod
-#     def method(cls):
-#         print("Base")
+# class CalculatorApp:
+#     def __init__(self):
+#         self.calculator = Calculator()
 #
-# class Child(Base):
-#     @classmethod
-#     def method(cls):
-#         print("Child")
+#     def run(self):
+#         print("Простий калькулятор (класи)")
+#         print("Операції: +, -, *, /, **")
+#         print("Введіть 'exit' для виходу")
 #
-# Base.method()
-# Child.method()
+#         while True:
+#             try:
+#                 operation = input("\nВведіть вираз (наприклад: 2 + 3): ")
+#
+#                 if operation == "exit":
+#                     print("Роботу завершено.")
+#                     break
+#
+#                 parts=operation.split()
+#                 if len(parts) != 3:
+#                     print(" Помилка: введіть у форматі 'число оператор число'")
+#                     continue
+#
+#                 a_str, operator, b_str = parts
+#
+#                 try:
+#                     a = int(a_str)
+#                     b = int(b_str)
+#                 except ValueError:
+#                     print("Помилка: аргументи повинні бути числами")
+#                     continue
+#
+#                 if operator == "+":
+#                     result = self.calculator.add(a, b)
+#                 elif operator == "-":
+#                     result = self.calculator.subtract(a, b)
+#                 elif operator == "*":
+#                     result = self.calculator.multiply(a, b)
+#                 elif operator == "/":
+#                     try:
+#                         result = self.calculator.divide(a, b)
+#                     except ZeroDivisionError as e:
+#                         print(e)
+#                         continue
+#
+#                 elif operator == "^":
+#                     try:
+#                         result = self.calculator.power(a, b)
+#                     except ValueError as e:
+#                         print(e)
+#                         continue
+#
+#                 else:
+#                     print("Помилка: невідомий оператор")
+#                     continue
+#
+#                 print(f" Результат: {result}")
+#
+#             except Exception as e:
+#                 print(f" Непередбачена помилка: {e}")
+#
+# if __name__ == "__main__":
+#     app = CalculatorApp()
+#     app.run()
 
-# Завдання 5
 
-from PIL import Image, ImageDraw
+# Task3
 
-class Shape:
-    def __init__(self):
-        # Колір тла
-        self.back_color = (155, 213, 117, 100)
-        # Створюємо зображення 500 * 500
-        self.im = Image.new('RGBA', (500, 500), self.back_color)
-        self.draw1 = ImageDraw.Draw(self.im)
+class Employee:
+    def __init__(self, name:str, surname:str, department:str, start_date:int):
+        if not name or not surname or not department :
+            raise ValueError("Name and Surname cannot be empty")
 
-    def draw(self):
-        pass
+        if not isinstance(start_date, int) or start_date < 1900 or start_date > 2100 :
+            raise ValueError("Start date must be between 1900 and 2100")
 
-    def erase(self):
-        self.im = Image.new('RGBA', (500, 500), self.back_color)
-        self.draw1 = ImageDraw.Draw(self.im)
+        self.name = name
+        self.surname = surname
+        self.department = department
+        self.start_date = start_date
 
-    def save(self):
-        print("Background was created")
-        return self.im.save('picture.png', quality=95)
+    def __str__(self):
+        return f"{self.name} {self.surname}, department: {self.department}, {self.start_date}"
 
-class Cone(Shape):
-    def draw(self):
-        self.draw1.polygon([(50,150), (200, 300), (350,400)], fill=self.back_color)
-        print("Cone was drawn")
+def main():
+    employees=[]
 
-class Poraboloid(Shape):
-    def draw(self):
-        for x in range(50,500):
-            y=int(0.002 * (x - 50)**2 + 150)
-            self.draw1.line([(x,y),(x, 500)], fill=self.back_color)
-        print("Poraboloid was drawn")
+    number_of_employees=int(input("How many employees? "))
+    for i in range(number_of_employees):
+        print(f"\nEnter employee info {i+1}:")
+        try:
+            name = input("Enter employee name: ").strip()
+            surname = input("Enter employee surname: ").strip()
+            department = input("Enter employee department: ").strip()
+            start_date = int(input("Enter employee start date: ").strip())
+            employee=Employee(name, surname, department, start_date)
+            employees.append(employee)
+        except Exception as e:
+            print(e)
 
-cone = Cone()
-cone.draw()
-cone.save()
+    try:
+        year = int(input("Enter year to filter employees: "))
+    except ValueError:
+        print("Year must be an integer")
+        return
 
-poraboloid = Poraboloid()
-poraboloid.draw()
-poraboloid.save()
+    print(f"\nСпівробітники, прийняті після {year}:")
+
+    find=False
+    for emp in employees:
+        if emp.start_date > year:
+            print(emp)
+            find = True
+
+    if not find:
+        print("There is no employee with that year")
+
+if __name__ == "__main__":
+    main()
+
