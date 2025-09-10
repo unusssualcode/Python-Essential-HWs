@@ -1,164 +1,204 @@
-# Task2
+# task2
 
-# class Calculator:
-#     def add(self, a, b):
-#         return a + b
-#
-#     def subtract(self, a, b):
-#         return a - b
-#
-#     def multiply(self, a, b):
-#         return a * b
-#
-#     def divide(self, a, b):
-#         if b == 0:
-#             raise ZeroDivisionError("Ділення на нуль неможливе")
-#         return a / b
-#
-#     def power(self, a, b):
-#         if a == 0 and b < 0:
-#             raise ValueError("0 не можна підносити до від’ємного степеня")
-#
-#         return a ** b
-#
-#
-# class CalculatorApp:
-#     def __init__(self):
-#         self.calculator = Calculator()
-#
-#     def run(self):
-#         print("Простий калькулятор (класи)")
-#         print("Операції: +, -, *, /, **")
-#         print("Введіть 'exit' для виходу")
-#
-#         while True:
-#             try:
-#                 operation = input("\nВведіть вираз (наприклад: 2 + 3): ")
-#
-#                 if operation == "exit":
-#                     print("Роботу завершено.")
-#                     break
-#
-#                 parts=operation.split()
-#                 if len(parts) != 3:
-#                     print(" Помилка: введіть у форматі 'число оператор число'")
-#                     continue
-#
-#                 a_str, operator, b_str = parts
-#
-#                 try:
-#                     a = int(a_str)
-#                     b = int(b_str)
-#                 except ValueError:
-#                     print("Помилка: аргументи повинні бути числами")
-#                     continue
-#
-#                 if operator == "+":
-#                     result = self.calculator.add(a, b)
-#                 elif operator == "-":
-#                     result = self.calculator.subtract(a, b)
-#                 elif operator == "*":
-#                     result = self.calculator.multiply(a, b)
-#                 elif operator == "/":
-#                     try:
-#                         result = self.calculator.divide(a, b)
-#                     except ZeroDivisionError as e:
-#                         print(e)
-#                         continue
-#
-#                 elif operator == "^":
-#                     try:
-#                         result = self.calculator.power(a, b)
-#                     except ValueError as e:
-#                         print(e)
-#                         continue
-#
-#                 else:
-#                     print("Помилка: невідомий оператор")
-#                     continue
-#
-#                 print(f" Результат: {result}")
-#
-#             except Exception as e:
-#                 print(f" Непередбачена помилка: {e}")
-#
-# if __name__ == "__main__":
-#     app = CalculatorApp()
-#     app.run()
-
-
-# Task3
-
-# class Employee:
-#     def __init__(self, name:str, surname:str, department:str, start_date:int):
-#         if not name or not surname or not department :
-#             raise ValueError("Name and Surname cannot be empty")
-#
-#         if not isinstance(start_date, int) or start_date < 1900 or start_date > 2100 :
-#             raise ValueError("Start date must be between 1900 and 2100")
-#
-#         self.name = name
+# class Contact:
+#     def __init__(self, surname, name, age, mob_phone, email):
 #         self.surname = surname
-#         self.department = department
-#         self.start_date = start_date
+#         self.name = name
+#         self.age = age
+#         self.mob_phone = mob_phone
+#         self.email = email
 #
-#     def __str__(self):
-#         return f"{self.name} {self.surname}, department: {self.department}, {self.start_date}"
+#     def get_contact(self):
+#         return f"{self.surname} {self.name}, {self.age} років, тел: {self.mob_phone}, email: {self.email}"
 #
-# def main():
-#     employees=[]
+#     def sent_messgae(self, message):
+#         return f"Повідомлення '{message}' відправлено на {self.email}"
 #
-#     number_of_employees=int(input("How many employees? "))
-#     for i in range(number_of_employees):
-#         print(f"\nEnter employee info {i+1}:")
-#         try:
-#             name = input("Enter employee name: ").strip()
-#             surname = input("Enter employee surname: ").strip()
-#             department = input("Enter employee department: ").strip()
-#             start_date = int(input("Enter employee start date: ").strip())
-#             employee=Employee(name, surname, department, start_date)
-#             employees.append(employee)
-#         except Exception as e:
-#             print(e)
+# class UpdateContact(Contact):
+#     def __init__(self, surname, name, age, mob_phone, email, job):
+#         super().__init__(surname, name, age, mob_phone, email)
+#         self.job = job
 #
-#     try:
-#         year = int(input("Enter year to filter employees: "))
-#     except ValueError:
-#         print("Year must be an integer")
-#         return
+#     def get_message(self):
+#         return f"Контакт: {self.surname} {self.name}, професія: {self.job}"
 #
-#     print(f"\nСпівробітники, прийняті після {year}:")
+# person1=Contact("ghghgh","ghfgfkdjh", 34, 3805000000, "email@email.com")
+# person2=UpdateContact("jsjsksj","jidjjsfnkjs", 32, 380508377362, "email2@email.com", "traktorist")
 #
-#     find=False
-#     for emp in employees:
-#         if emp.start_date > year:
-#             print(emp)
-#             find = True
+# print(person1.get_contact())
+# print(person1.sent_messgae("hello"))
 #
-#     if not find:
-#         print("There is no employee with that year")
-#
-# if __name__ == "__main__":
-#     main()
+# print(person2.get_contact())
+# print(person2.sent_messgae("hello2"))
+# print(person2.get_message())
 
-# Task4
+# task3
 
-# class MyCustomError(Exception):
-#     def __init__(self, message="Це моє власне виключення!"):
-#         super().__init__(message)
+# class Contact:
+#     def __init__(self, surname, name, age, mob_phone, email):
+#         self.surname = surname
+#         self.name = name
+#         self.age = age
+#         self.mob_phone = mob_phone
+#         self.email = email
 #
-# def check_value(value):
-#     if value == "error"
-#         raise MyCustomError("Ви ввели заборонене значення: 'error'")
-#     return f"Ви ввели: {value}"
+#     def get_contact(self):
+#         return f"{self.surname} {self.name}, {self.age} років, тел: {self.mob_phone}, email: {self.email}"
 #
-# def main():
-#     try:
-#         user_value=input("Введіть будь-що (або 'error', щоб викликати виняток): ")
-#         result = check_value(user_value)
-#         print(result)
-#     except MyCustomError as e:
-#         print(f"Сталася помилка: {e}")
+#     def sent_messgae(self, message):
+#         return f"Повідомлення '{message}' відправлено на {self.email}"
 #
-# if __name__ == "__main__":
-#     main()
+# class UpdateContact(Contact):
+#     def __init__(self, surname, name, age, mob_phone, email, job):
+#         super().__init__(surname, name, age, mob_phone, email)
+#         self.job = job
+#
+#     def get_message(self):
+#         return f"Контакт: {self.surname} {self.name}, професія: {self.job}"
+#
+# person1=Contact("ghghgh","ghfgfkdjh", 34, 3805000000, "email@email.com")
+# person2=UpdateContact("jsjsksj","jidjjsfnkjs", 32, 380508377362, "email2@email.com", "traktorist")
+#
+# print(person1.get_contact())
+# print(person1.sent_messgae("hello"))
+#
+# print(person2.get_contact())
+# print(person2.sent_messgae("hello2"))
+# print(person2.get_message())
+#
+# print("\n=== Використання hasattr(), getattr(), setattr(), delattr() ===")
+# print(hasattr(person1, "surname"))
+# print(getattr(person1, "surname"))
+# setattr(person1, "surname", "fhjdksiusysh")
+# delattr(person1, "surname")
+
+
+# task4
+
+# class Contact:
+#     def __init__(self, surname, name, age, mob_phone, email):
+#         self.surname = surname
+#         self.name = name
+#         self.age = age
+#         self.mob_phone = mob_phone
+#         self.email = email
+#
+#     def get_contact(self):
+#         return f"{self.surname} {self.name}, {self.age} років, тел: {self.mob_phone}, email: {self.email}"
+#
+#     def sent_messgae(self, message):
+#         return f"Повідомлення '{message}' відправлено на {self.email}"
+#
+# class UpdateContact(Contact):
+#     def __init__(self, surname, name, age, mob_phone, email, job):
+#         super().__init__(surname, name, age, mob_phone, email)
+#         self.job = job
+#
+#     def get_message(self):
+#         return f"Контакт: {self.surname} {self.name}, професія: {self.job}"
+#
+# person1=Contact("ghghgh","ghfgfkdjh", 34, 3805000000, "email@email.com")
+# person2=Contact("Petrov", "Petro", 25, 380507778899, "petro@email.com")
+#
+# person3=UpdateContact("jsjsksj","jidjjsfnkjs", 32, 380508377362, "email2@email.com", "traktorist")
+# person4 = UpdateContact("Koval", "Olena", 35, 380671112244, "olena@email.com", "вчитель")
+
+# print(isinstance(person1, Contact))
+# print(isinstance(person1, UpdateContact))
+#
+#
+# print(issubclass(UpdateContact, Contact))
+# print(issubclass(Contact, object))
+# print(person1.get_contact())
+# print(person1.sent_messgae("hello"))
+#
+# print(person2.get_contact())
+# print(person2.sent_messgae("hello2"))
+# print(person2.get_message())
+#
+# print("\n=== Використання hasattr(), getattr(), setattr(), delattr() ===")
+# print(hasattr(person1, "surname"))
+# print(getattr(person1, "surname"))
+# setattr(person1, "surname", "fhjdksiusysh")
+# delattr(person1, "surname")
+
+# task5
+
+# class Contact:
+#     def __init__(self, surname, name, age, mob_phone, email):
+#         self.surname = surname
+#         self.name = name
+#         self.age = age
+#         self.mob_phone = mob_phone
+#         self.email = email
+#
+#     def get_contact(self):
+#         return f"{self.surname} {self.name}, {self.age} років, тел: {self.mob_phone}, email: {self.email}"
+#
+#     def sent_messgae(self, message):
+#         return f"Повідомлення '{message}' відправлено на {self.email}"
+#
+# class UpdateContact(Contact):
+#     def __init__(self, surname, name, age, mob_phone, email, job):
+#         super().__init__(surname, name, age, mob_phone, email)
+#         self.job = job
+#
+#     def get_message(self):
+#         return f"Контакт: {self.surname} {self.name}, професія: {self.job}"
+#
+# person1=Contact("ghghgh","ghfgfkdjh", 34, 3805000000, "email@email.com")
+# person2=Contact("Petrov", "Petro", 25, 380507778899, "petro@email.com")
+#
+# person3=UpdateContact("jsjsksj","jidjjsfnkjs", 32, 380508377362, "email2@email.com", "traktorist")
+# person4 = UpdateContact("Koval", "Olena", 35, 380671112244, "olena@email.com", "вчитель")
+#
+# print(Contact.__dict__)
+# print(UpdateContact.__dict__)
+# print(person1.__dict__)
+# print(person2.__dict__)
+# print(person3.__dict__)
+# print(person4.__dict__)
+#
+# delattr(person3, "job")
+# delattr(person4, "job")
+#
+# print(Contact.__dict__)
+# print(UpdateContact.__dict__)
+# print(person1.__dict__)
+# print(person2.__dict__)
+# print(person3.__dict__)
+# print(person4.__dict__)
+
+# task6
+
+# import inspect
+#
+# class Contact:
+#     def __init__(self, surname, name, age, mob_phone, email):
+#         self.surname = surname
+#         self.name = name
+#         self.age = age
+#         self.mob_phone = mob_phone
+#         self.email = email
+#
+#     def get_contact(self):
+#         return f"{self.surname} {self.name}, {self.age} років, тел: {self.mob_phone}, email: {self.email}"
+#
+#     def sent_messgae(self, message):
+#         return f"Повідомлення '{message}' відправлено на {self.email}"
+#
+#
+# class UpdateContact(Contact):
+#     def __init__(self, surname, name, age, mob_phone, email, job):
+#         super().__init__(surname, name, age, mob_phone, email)
+#         self.job = job
+#
+#     def get_message(self):
+#         return f"Контакт: {self.surname} {self.name}, професія: {self.job}"
+#
+#
+# for name, function in inspect.getmembers(Contact, inspect.isfunction):
+#     print(f"{name}: {function.get_contact()}")
+#
+# for name, function in inspect.getmembers(UpdateContact, inspect.isfunction):
+#     print(f"{name}: {function.get_contact()}")
