@@ -1,204 +1,248 @@
-# task2
+# task 1
 
-# class Contact:
-#     def __init__(self, surname, name, age, mob_phone, email):
-#         self.surname = surname
-#         self.name = name
-#         self.age = age
-#         self.mob_phone = mob_phone
-#         self.email = email
+# class MyIterator:
+#     def __init__(self, iterable):
+#         self.iterable = iterable
+#         self.index = 0
 #
-#     def get_contact(self):
-#         return f"{self.surname} {self.name}, {self.age} років, тел: {self.mob_phone}, email: {self.email}"
+#     def __iter__(self):
+#         return self
 #
-#     def sent_messgae(self, message):
-#         return f"Повідомлення '{message}' відправлено на {self.email}"
+#     def __next__(self):
+#         if self.index < len(self.iterable):
+#             item = self.iterable[self.index]
+#             self.index += 1
+#             return item
+#         else:
+#             raise StopIteration
 #
-# class UpdateContact(Contact):
-#     def __init__(self, surname, name, age, mob_phone, email, job):
-#         super().__init__(surname, name, age, mob_phone, email)
-#         self.job = job
+# data = [10, 20, 30, 40]
 #
-#     def get_message(self):
-#         return f"Контакт: {self.surname} {self.name}, професія: {self.job}"
-#
-# person1=Contact("ghghgh","ghfgfkdjh", 34, 3805000000, "email@email.com")
-# person2=UpdateContact("jsjsksj","jidjjsfnkjs", 32, 380508377362, "email2@email.com", "traktorist")
-#
-# print(person1.get_contact())
-# print(person1.sent_messgae("hello"))
-#
-# print(person2.get_contact())
-# print(person2.sent_messgae("hello2"))
-# print(person2.get_message())
+# for i in MyIterator(data):
+#     print(i)
 
 # task3
 
-# class Contact:
-#     def __init__(self, surname, name, age, mob_phone, email):
-#         self.surname = surname
-#         self.name = name
-#         self.age = age
-#         self.mob_phone = mob_phone
-#         self.email = email
+# class MyReversedIterator:
+#     def __init__(self, iterable):
+#         self.iterable = iterable
+#         self.index = len(iterable) - 1
 #
-#     def get_contact(self):
-#         return f"{self.surname} {self.name}, {self.age} років, тел: {self.mob_phone}, email: {self.email}"
+#     def __iter__(self):
+#         return self
 #
-#     def sent_messgae(self, message):
-#         return f"Повідомлення '{message}' відправлено на {self.email}"
+#     def __next__(self):
+#         if self.index >= 0:
+#             item = self.iterable[self.index]
+#             self.index -= 1
+#             return item
+#         else:
+#             raise StopIteration
 #
-# class UpdateContact(Contact):
-#     def __init__(self, surname, name, age, mob_phone, email, job):
-#         super().__init__(surname, name, age, mob_phone, email)
-#         self.job = job
+# data = [1,2,3,4,5]
 #
-#     def get_message(self):
-#         return f"Контакт: {self.surname} {self.name}, професія: {self.job}"
+# for i in MyReversedIterator(data):
+#     print(i)
+
+# task2
 #
-# person1=Contact("ghghgh","ghfgfkdjh", 34, 3805000000, "email@email.com")
-# person2=UpdateContact("jsjsksj","jidjjsfnkjs", 32, 380508377362, "email2@email.com", "traktorist")
-#
-# print(person1.get_contact())
-# print(person1.sent_messgae("hello"))
-#
-# print(person2.get_contact())
-# print(person2.sent_messgae("hello2"))
-# print(person2.get_message())
-#
-# print("\n=== Використання hasattr(), getattr(), setattr(), delattr() ===")
-# print(hasattr(person1, "surname"))
-# print(getattr(person1, "surname"))
-# setattr(person1, "surname", "fhjdksiusysh")
-# delattr(person1, "surname")
+# """
+# Пример реализации списка с итератором
+# """
 
 
-# task4
+class MyList(object):
+    """Класс списка"""
 
-# class Contact:
-#     def __init__(self, surname, name, age, mob_phone, email):
-#         self.surname = surname
-#         self.name = name
-#         self.age = age
-#         self.mob_phone = mob_phone
-#         self.email = email
-#
-#     def get_contact(self):
-#         return f"{self.surname} {self.name}, {self.age} років, тел: {self.mob_phone}, email: {self.email}"
-#
-#     def sent_messgae(self, message):
-#         return f"Повідомлення '{message}' відправлено на {self.email}"
-#
-# class UpdateContact(Contact):
-#     def __init__(self, surname, name, age, mob_phone, email, job):
-#         super().__init__(surname, name, age, mob_phone, email)
-#         self.job = job
-#
-#     def get_message(self):
-#         return f"Контакт: {self.surname} {self.name}, професія: {self.job}"
-#
-# person1=Contact("ghghgh","ghfgfkdjh", 34, 3805000000, "email@email.com")
-# person2=Contact("Petrov", "Petro", 25, 380507778899, "petro@email.com")
-#
-# person3=UpdateContact("jsjsksj","jidjjsfnkjs", 32, 380508377362, "email2@email.com", "traktorist")
-# person4 = UpdateContact("Koval", "Olena", 35, 380671112244, "olena@email.com", "вчитель")
+    class _ListNode(object):
+        """Внутренний класс элемента списка"""
 
-# print(isinstance(person1, Contact))
-# print(isinstance(person1, UpdateContact))
-#
-#
-# print(issubclass(UpdateContact, Contact))
-# print(issubclass(Contact, object))
-# print(person1.get_contact())
-# print(person1.sent_messgae("hello"))
-#
-# print(person2.get_contact())
-# print(person2.sent_messgae("hello2"))
-# print(person2.get_message())
-#
-# print("\n=== Використання hasattr(), getattr(), setattr(), delattr() ===")
-# print(hasattr(person1, "surname"))
-# print(getattr(person1, "surname"))
-# setattr(person1, "surname", "fhjdksiusysh")
-# delattr(person1, "surname")
+        # По умолчанию атрибуты-данные хранятся в словаре __dict__.
+        # Если возможность динамически добавлять новые атрибуты
+        # не требуется, можно заранее их описать, что более
+        # эффективно с точки зрения памяти и быстродействия, что
+        # особенно важно, когда создаётся множество экземляров
+        # данного класса.
+        __slots__ = ('value', 'prev', 'next')
 
-# task5
+        def __init__(self, value, prev=None, next=None):
+            self.value = value
+            self.prev = prev
+            self.next = next
 
-# class Contact:
-#     def __init__(self, surname, name, age, mob_phone, email):
-#         self.surname = surname
-#         self.name = name
-#         self.age = age
-#         self.mob_phone = mob_phone
-#         self.email = email
-#
-#     def get_contact(self):
-#         return f"{self.surname} {self.name}, {self.age} років, тел: {self.mob_phone}, email: {self.email}"
-#
-#     def sent_messgae(self, message):
-#         return f"Повідомлення '{message}' відправлено на {self.email}"
-#
-# class UpdateContact(Contact):
-#     def __init__(self, surname, name, age, mob_phone, email, job):
-#         super().__init__(surname, name, age, mob_phone, email)
-#         self.job = job
-#
-#     def get_message(self):
-#         return f"Контакт: {self.surname} {self.name}, професія: {self.job}"
-#
-# person1=Contact("ghghgh","ghfgfkdjh", 34, 3805000000, "email@email.com")
-# person2=Contact("Petrov", "Petro", 25, 380507778899, "petro@email.com")
-#
-# person3=UpdateContact("jsjsksj","jidjjsfnkjs", 32, 380508377362, "email2@email.com", "traktorist")
-# person4 = UpdateContact("Koval", "Olena", 35, 380671112244, "olena@email.com", "вчитель")
-#
-# print(Contact.__dict__)
-# print(UpdateContact.__dict__)
-# print(person1.__dict__)
-# print(person2.__dict__)
-# print(person3.__dict__)
-# print(person4.__dict__)
-#
-# delattr(person3, "job")
-# delattr(person4, "job")
-#
-# print(Contact.__dict__)
-# print(UpdateContact.__dict__)
-# print(person1.__dict__)
-# print(person2.__dict__)
-# print(person3.__dict__)
-# print(person4.__dict__)
+        def __repr__(self):
+            return 'MyList._ListNode({}, {}, {})'.format(self.value, id(self.prev), id(self.next))
 
-# task6
+    class _Iterator(object):
+        """Внутренний класс итератора"""
 
-# import inspect
-#
-# class Contact:
-#     def __init__(self, surname, name, age, mob_phone, email):
-#         self.surname = surname
-#         self.name = name
-#         self.age = age
-#         self.mob_phone = mob_phone
-#         self.email = email
-#
-#     def get_contact(self):
-#         return f"{self.surname} {self.name}, {self.age} років, тел: {self.mob_phone}, email: {self.email}"
-#
-#     def sent_messgae(self, message):
-#         return f"Повідомлення '{message}' відправлено на {self.email}"
-#
-#
-# class UpdateContact(Contact):
-#     def __init__(self, surname, name, age, mob_phone, email, job):
-#         super().__init__(surname, name, age, mob_phone, email)
-#         self.job = job
-#
-#     def get_message(self):
-#         return f"Контакт: {self.surname} {self.name}, професія: {self.job}"
-#
-#
-# for name, function in inspect.getmembers(Contact, inspect.isfunction):
-#     print(f"{name}: {function.get_contact()}")
-#
-# for name, function in inspect.getmembers(UpdateContact, inspect.isfunction):
-#     print(f"{name}: {function.get_contact()}")
+        def __init__(self, list_instance):
+            self._list_instance = list_instance
+            self._next_node = list_instance._head
+
+        def __iter__(self):
+            return self
+
+        def __next__(self):
+            if self._next_node is None:
+                raise StopIteration
+
+            value = self._next_node.value
+            self._next_node = self._next_node.next
+
+            return value
+
+    def __init__(self, iterable=None):
+        # Длина списка
+        self._length = 0
+        # Первый элемент списка
+        self._head = None
+        # Последний элемент списка
+        self._tail = None
+
+        # Добавление всех переданных элементов
+        if iterable is not None:
+            for element in iterable:
+                self.append(element)
+
+    def append(self, element):
+        """Добавление элемента в конец списка"""
+
+        # Создание элемента списка
+        node = MyList._ListNode(element)
+
+        if self._tail is None:
+            # Список пока пустой
+            self._head = self._tail = node
+        else:
+            # Добавление элемента
+            self._tail.next = node
+            node.prev = self._tail
+            self._tail = node
+
+        self._length += 1
+
+    def insert(self, index, element):
+        if not 0 <= index < self._length:
+            raise IndexError('index out of range')
+
+        if index == self._length:
+            self.append(element)
+            return
+
+        if index == 0:
+            node = MyList._ListNode(element, None, self._head)
+            if self._head:
+                self._head.prev = node
+            self._head = node
+            if self._tail is None:
+                self._tail = node
+            self._length += 1
+            return
+
+        current = self._head
+        for _ in range(index - 1):
+            current = current.next
+
+        new_node = MyList._ListNode(element, current.prev, current)
+        current.prev.next = new_node
+        current.next = new_node
+        self._length += 1
+
+
+    def pop(self):
+        if self._tail is None:
+            raise IndexError('pop from empty list')
+
+        value=self._tail.value
+        if self._head==self._tail:
+            self._head=None
+            self._tail=None
+        else:
+            self._tail=self._tail.prev
+            self._tail.next=None
+        self._length -= 1
+        return value
+
+    def remove_at(self, index):
+        if not 0 <= index < self._length:
+            raise IndexError('index out of range')
+
+        if index == 0:
+            value = self._head.value
+            self._head = self._head.next
+            if self._head:
+                self._head.prev = None
+            else:
+                self._tail = None
+            self._length -= 1
+            return value
+
+        if index == self._length - 1:
+            return self.pop()
+        current = self._head
+        for _ in range(index - 1):
+            current = current.next
+
+        value=current.value
+        current.prev.next = current.next
+        current.next.prev = current.prev
+        self._length -= 1
+        return value
+
+    def clear(self):
+        self._length = 0
+        self._head = None
+        self._tail = None
+
+
+
+    def __len__(self):
+        return self._length
+
+    def __repr__(self):
+        # Метод join класса str принимает последовательность строк
+        # и возвращает строку, в которой все элементы этой
+        # последовательности соединены изначальной строкой.
+        # Функция map применяет заданную функцию ко всем элементам последовательности.
+        return 'MyList([{}])'.format(', '.join(map(repr, self)))
+
+    def __getitem__(self, index):
+        if not 0 <= index < len(self):
+            raise IndexError('list index out of range')
+
+        node = self._head
+        for _ in range(index):
+            node = node.next
+
+        return node.value
+
+    def __iter__(self):
+        return MyList._Iterator(self)
+
+
+def main():
+    # Создание списка
+    my_list = MyList([1, 2, 5])
+
+    # Вывод длины списка
+    print(len(my_list))
+
+    # Вывод самого списка
+    print(my_list)
+
+    print()
+
+    # Обход списка
+    for element in my_list:
+        print(element)
+
+    print()
+
+    # Повторный обход списка
+    for element in my_list:
+        print(element)
+
+
+if __name__ == '__main__':
+    main()
