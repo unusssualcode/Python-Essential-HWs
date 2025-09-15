@@ -1,248 +1,51 @@
-# task 1
+# task1
+#
+# def reversed_generator(list):
+#     for i in range(len(list) - 1, -1, -1):
+#         yield list[i]
+#
+# nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+#
+# for num in reversed_generator(nums):
+#     print(num)
 
-# class MyIterator:
-#     def __init__(self, iterable):
-#         self.iterable = iterable
-#         self.index = 0
+# task2
+
+# numbers=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 #
-#     def __iter__(self):
-#         return self
+# squares=[x**2 for x in numbers if x % 2 == 0]
+# print(squares)
+
+
+# numbers=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 #
-#     def __next__(self):
-#         if self.index < len(self.iterable):
-#             item = self.iterable[self.index]
-#             self.index += 1
-#             return item
-#         else:
-#             raise StopIteration
+# squares=[]
 #
-# data = [10, 20, 30, 40]
+# for num in numbers:
+#     if num%2==0:
+#         squares.append(num**2)
 #
-# for i in MyIterator(data):
-#     print(i)
+# print(squares)
 
 # task3
 
-# class MyReversedIterator:
-#     def __init__(self, iterable):
-#         self.iterable = iterable
-#         self.index = len(iterable) - 1
-#
-#     def __iter__(self):
-#         return self
-#
-#     def __next__(self):
-#         if self.index >= 0:
-#             item = self.iterable[self.index]
-#             self.index -= 1
-#             return item
-#         else:
-#             raise StopIteration
-#
-# data = [1,2,3,4,5]
-#
-# for i in MyReversedIterator(data):
-#     print(i)
+def prime_nums(n):
+    def is_prime(k):
+        if k < 2:
+            return False
+        for i in range(2, int(k**0.5)+1):
+            if k % i == 0:
+                return False
+        return True
+    count = 0
+    num=2
+    while count < n:
+        if is_prime(num):
+            yield num
+            count += 1
+        num += 1
 
-# task2
-#
-# """
-# Пример реализации списка с итератором
-# """
+for ns in prime_nums(10):
+    print(ns)
 
 
-class MyList(object):
-    """Класс списка"""
-
-    class _ListNode(object):
-        """Внутренний класс элемента списка"""
-
-        # По умолчанию атрибуты-данные хранятся в словаре __dict__.
-        # Если возможность динамически добавлять новые атрибуты
-        # не требуется, можно заранее их описать, что более
-        # эффективно с точки зрения памяти и быстродействия, что
-        # особенно важно, когда создаётся множество экземляров
-        # данного класса.
-        __slots__ = ('value', 'prev', 'next')
-
-        def __init__(self, value, prev=None, next=None):
-            self.value = value
-            self.prev = prev
-            self.next = next
-
-        def __repr__(self):
-            return 'MyList._ListNode({}, {}, {})'.format(self.value, id(self.prev), id(self.next))
-
-    class _Iterator(object):
-        """Внутренний класс итератора"""
-
-        def __init__(self, list_instance):
-            self._list_instance = list_instance
-            self._next_node = list_instance._head
-
-        def __iter__(self):
-            return self
-
-        def __next__(self):
-            if self._next_node is None:
-                raise StopIteration
-
-            value = self._next_node.value
-            self._next_node = self._next_node.next
-
-            return value
-
-    def __init__(self, iterable=None):
-        # Длина списка
-        self._length = 0
-        # Первый элемент списка
-        self._head = None
-        # Последний элемент списка
-        self._tail = None
-
-        # Добавление всех переданных элементов
-        if iterable is not None:
-            for element in iterable:
-                self.append(element)
-
-    def append(self, element):
-        """Добавление элемента в конец списка"""
-
-        # Создание элемента списка
-        node = MyList._ListNode(element)
-
-        if self._tail is None:
-            # Список пока пустой
-            self._head = self._tail = node
-        else:
-            # Добавление элемента
-            self._tail.next = node
-            node.prev = self._tail
-            self._tail = node
-
-        self._length += 1
-
-    def insert(self, index, element):
-        if not 0 <= index < self._length:
-            raise IndexError('index out of range')
-
-        if index == self._length:
-            self.append(element)
-            return
-
-        if index == 0:
-            node = MyList._ListNode(element, None, self._head)
-            if self._head:
-                self._head.prev = node
-            self._head = node
-            if self._tail is None:
-                self._tail = node
-            self._length += 1
-            return
-
-        current = self._head
-        for _ in range(index - 1):
-            current = current.next
-
-        new_node = MyList._ListNode(element, current.prev, current)
-        current.prev.next = new_node
-        current.next = new_node
-        self._length += 1
-
-
-    def pop(self):
-        if self._tail is None:
-            raise IndexError('pop from empty list')
-
-        value=self._tail.value
-        if self._head==self._tail:
-            self._head=None
-            self._tail=None
-        else:
-            self._tail=self._tail.prev
-            self._tail.next=None
-        self._length -= 1
-        return value
-
-    def remove_at(self, index):
-        if not 0 <= index < self._length:
-            raise IndexError('index out of range')
-
-        if index == 0:
-            value = self._head.value
-            self._head = self._head.next
-            if self._head:
-                self._head.prev = None
-            else:
-                self._tail = None
-            self._length -= 1
-            return value
-
-        if index == self._length - 1:
-            return self.pop()
-        current = self._head
-        for _ in range(index - 1):
-            current = current.next
-
-        value=current.value
-        current.prev.next = current.next
-        current.next.prev = current.prev
-        self._length -= 1
-        return value
-
-    def clear(self):
-        self._length = 0
-        self._head = None
-        self._tail = None
-
-
-
-    def __len__(self):
-        return self._length
-
-    def __repr__(self):
-        # Метод join класса str принимает последовательность строк
-        # и возвращает строку, в которой все элементы этой
-        # последовательности соединены изначальной строкой.
-        # Функция map применяет заданную функцию ко всем элементам последовательности.
-        return 'MyList([{}])'.format(', '.join(map(repr, self)))
-
-    def __getitem__(self, index):
-        if not 0 <= index < len(self):
-            raise IndexError('list index out of range')
-
-        node = self._head
-        for _ in range(index):
-            node = node.next
-
-        return node.value
-
-    def __iter__(self):
-        return MyList._Iterator(self)
-
-
-def main():
-    # Создание списка
-    my_list = MyList([1, 2, 5])
-
-    # Вывод длины списка
-    print(len(my_list))
-
-    # Вывод самого списка
-    print(my_list)
-
-    print()
-
-    # Обход списка
-    for element in my_list:
-        print(element)
-
-    print()
-
-    # Повторный обход списка
-    for element in my_list:
-        print(element)
-
-
-if __name__ == '__main__':
-    main()
