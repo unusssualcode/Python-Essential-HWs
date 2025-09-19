@@ -122,73 +122,124 @@ class MyList(object):
 
         self._length += 1
 
-    def insert(self, index, element):
-        if not 0 <= index < self._length:
-            raise IndexError('index out of range')
 
-        if index == self._length:
-            self.append(element)
-            return
-
-        if index == 0:
-            node = MyList._ListNode(element, None, self._head)
-            if self._head:
-                self._head.prev = node
-            self._head = node
-            if self._tail is None:
-                self._tail = node
-            self._length += 1
-            return
-
-        current = self._head
-        for _ in range(index - 1):
-            current = current.next
-
-        new_node = MyList._ListNode(element, current.prev, current)
-        current.prev.next = new_node
-        current.next = new_node
+    def _insert_to_head(self, element):
+        node = MyList._ListNode(element)
+        self._head.prev = node
+        node.next = self._head
+        self._head = node
         self._length += 1
+
+    def _insert_to_any_index(self,index, element):
+        node = MyList._ListNode(element)
+        current_node = self._head
+        for _ in range(index):
+            current_node=current_node.next
+
+        node.next=current_node
+        node.prev=current_node.prev
+        current_node.prev.next=node
+        current_node.prev=node
+
+
+        self._length += 1
+
+    def insert(self, element, index):
+        if self._length == 0 or index >= self._length - 1:
+            self.append(element)
+        elif index == 0:
+            self._insert_to_head(element)
+        else:
+            self._insert_to_any_index(index, element)
+
+    # def insert(self, index, element):
+    #     if not 0 <= index < self._length:
+    #         raise IndexError('index out of range')
+    #
+    #     if index == self._length:
+    #         self.append(element)
+    #         return
+    #
+    #     if index == 0:
+    #         node = MyList._ListNode(element, None, self._head)
+    #         if self._head:
+    #             self._head.prev = node
+    #         self._head = node
+    #         if self._tail is None:
+    #             self._tail = node
+    #         self._length += 1
+    #         return
+    #
+    #     current = self._head
+    #     for _ in range(index - 1):
+    #         current = current.next
+    #
+    #     new_node = MyList._ListNode(element, current.prev, current)
+    #     current.prev.next = new_node
+    #     current.next = new_node
+    #     self._length += 1
 
 
     def pop(self):
-        if self._tail is None:
-            raise IndexError('pop from empty list')
+        if self._tail and self._length > 1:
+            self._tail.prev.next = None
+            self._tail = self._tail.prev
+            self._length -= 1
+        elif self._length == 1:
+            self.clear()
 
-        value=self._tail.value
-        if self._head==self._tail:
-            self._head=None
-            self._tail=None
-        else:
-            self._tail=self._tail.prev
-            self._tail.next=None
-        self._length -= 1
-        return value
+
+
+        # if self._tail is None:
+        #     raise IndexError('pop from empty list')
+        #
+        # value=self._tail.value
+        # if self._head==self._tail:
+        #     self._head=None
+        #     self._tail=None
+        # else:
+        #     self._tail=self._tail.prev
+        #     self._tail.next=None
+        # self._length -= 1
+        # return value
 
     def remove_at(self, index):
-        if not 0 <= index < self._length:
-            raise IndexError('index out of range')
-
-        if index == 0:
-            value = self._head.value
-            self._head = self._head.next
-            if self._head:
-                self._head.prev = None
-            else:
-                self._tail = None
-            self._length -= 1
-            return value
-
         if index == self._length - 1:
-            return self.pop()
-        current = self._head
-        for _ in range(index - 1):
-            current = current.next
+            self.pop()
+            return
+        current_node = self._head
+        for _ in range(index):
+            current_node = current_node.next
 
-        value=current.value
-        current.prev.next = current.next
-        current.next.prev = current.prev
+        current_node.prev.next = current_node.next
+        current_node.next.prev = current_node.prev
         self._length -= 1
-        return value
+
+
+        # if not 0 <= index < self._length:
+        #     raise IndexError('index out of range')
+        #
+        # if index == 0:
+        #     value = self._head.value
+        #     self._head = self._head.next
+        #     if self._head:
+        #         self._head.prev = None
+        #     else:
+        #         self._tail = None
+        #     self._length -= 1
+        #     return value
+        #
+        # if index == self._length - 1:
+        #     return self.pop()
+        # current = self._head
+        # for _ in range(index - 1):
+        #     current = current.next
+        #
+        # value=current.value
+        # current.prev.next = current.next
+        # current.next.prev = current.prev
+        # self._length -= 1
+        # return value
 
     def clear(self):
         self._length = 0
